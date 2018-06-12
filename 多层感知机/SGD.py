@@ -36,7 +36,7 @@ for i in range(3000):
 #对模型进行准确率评测
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
-print(accuracy.eval({x: mnist.test.images, y_: mnist.test.labels.keep_prob : 1.0}))
+print(accuracy.eval({x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
 
 """没有隐含层的Softmax Regression只能直接从图像的像素点推断是哪个数字，而没有特征抽象的过程。多层神经网络依靠隐含层
 则可以组合出高阶特征，比如横线、竖线、圆圈等，之后可以将这些高阶特征或者说组件再组合成数字，就能实现精准的匹配和分类。"""
