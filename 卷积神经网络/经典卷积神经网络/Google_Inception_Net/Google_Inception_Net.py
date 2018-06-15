@@ -66,3 +66,36 @@ def inception_v3_base(inputs, scope=None):
                                            scope='Conv2d_0b_1x1')
                 net = tf.concat([branch_0, branch_1, branch_2, branch_3], 3)
 
+        with tf.variable_scope('Mixed_5c'):
+            with tf.variable_scope('Branch_0'):
+                branch_0 = slim.conv2d(net, 64, [1, 1], scope='Conv2d_0a_1x1')
+            with tf.variable_scope('Branch_1'):
+                branch_1 = slim.conv2d(net, 48, [1, 1], scope='Conv2d_0a_1x1')
+                branch_1 = slim.conv2d(branch_1, 64, [5, 5],
+                                       scope='Conv_1_0c_5x5')
+            with tf.variable_scope('Branch_2'):
+                branch_2 = slim.conv2d(net, 64, [1, 1], scope="Conv2d_0a_1x1")
+                branch_2 = slim.conv2d(branch_2, 96, [3, 3],
+                                       scope='Conv2d_0c_3x3')
+            with tf.variable_scope('Branch_3'):
+                branch_3 = slim.avg_pool2d(net, [3, 3], scope='AvgPool_0a_3x3')
+                branch_3 = slim.conv2d(branch_3, 64, [1, 1],
+                                       scope='Conv2d_0b_1x1')
+            net = tf.concat([branch_0, branch_1, branch_2, branch_3], 3)
+        with tf.variable_scope('Mixed_5d'):
+            with tf.variable_scope('Branch_0'):
+                branch_0 = slim.conv2d(net, 64, [1, 1], scope='Conv2d_0a_1x1')
+            with tf.variable_scope('Branch_1'):
+                branch_1 = slim.conv2d(net, 48, [1, 1], scope='Conv2d_0a_1x1')
+                branch_1 = slim.conv2d(branch_1, 64, [5, 5],
+                                       scope='Conv2d_0b_5x5')
+            with tf.variable_scope('Branch_2'):
+                branch_2 = slim.conv2d(net, 64, [1, 1],
+                                       scope='Conv2d_0b_1x1')
+                branch_2 = slim.conv2d(branch_2, 96, [3, 3],
+                                       scope='Conv2d_0c_3x3')
+            with tf.variable_scope('Branch_3'):
+                branch_3 = slim.avg_pool2d(net, [3, 3], scope='AvgPool_0a_3x3')
+                branch_3 = slim.conv2d(branch_3, 64, [1, 1],
+                                       scope='Conv2d_0b_1x1')
+            net = tf.concat([branch_0, branch_1, branch_2, branch_3], 3)
